@@ -109,3 +109,6 @@ UpgradeLog*.XML
 
 # MassTransit Logs
 MassTransit.log*
+
+# Mono .userprefs
+*.userprefs
