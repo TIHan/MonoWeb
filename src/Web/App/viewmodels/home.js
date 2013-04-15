@@ -1,4 +1,5 @@
 ﻿define(function (require) {
+    var system = require('durandal/system');
 	var http = require("http");
 
     function vm() {
@@ -13,6 +14,12 @@
         /*************************************************************************/
 
         self.activate = function () {
+		    // SignalR
+		    var connection = $.connection('/echo');
+		    connection.start(function () {
+		    	alert('hi');
+		    });
+
 			return true;
         };
 

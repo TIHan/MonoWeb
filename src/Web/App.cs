@@ -1,5 +1,7 @@
 using System;
 using System.Web.UI;
+using System.Web.Routing;
+using Microsoft.AspNet.SignalR;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
@@ -54,6 +56,7 @@ namespace MonoWeb {
 		
 		public static void Start() {
 			new AppHost().Init();
+			RouteTable.Routes.MapConnection<PersistentEndpoint>("echo", "/echo");
 		}
 	}
 

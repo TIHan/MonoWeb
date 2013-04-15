@@ -66,6 +66,24 @@
     <Reference Include="ServiceStack.Text">
       <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\..\lib\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\..\lib\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\lib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\lib\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\..\lib\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Owin">
+      <HintPath>..\..\lib\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -117,6 +135,7 @@
     <Content Include="Content\site.css" />
     <Content Include="App\views\home.html" />
     <Content Include="App\viewmodels\home.js" />
+    <Content Include="App\service.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />
@@ -126,6 +145,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Services.cs" />
+    <Compile Include="PersistentEndpoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\" />
