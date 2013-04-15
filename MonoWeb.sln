@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "src\Web\Web.csproj", "{DBA737BE-56F5-4EA6-91AD-9D33B0094885}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		DEBUG MONO|Any CPU = DEBUG MONO|Any CPU
+		MONOTOUCH|Any CPU = MONOTOUCH|Any CPU
+		STATIC_ONLY NO_EXPRESSIONS|Any CPU = STATIC_ONLY NO_EXPRESSIONS|Any CPU
+		MonoTouch|Any CPU = MonoTouch|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.DEBUG MONO|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.DEBUG MONO|Any CPU.Build.0 = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.MONOTOUCH|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.MonoTouch|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.MONOTOUCH|Any CPU.Build.0 = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.MonoTouch|Any CPU.Build.0 = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA737BE-56F5-4EA6-91AD-9D33B0094885}.STATIC_ONLY NO_EXPRESSIONS|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = src\Web\Web.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
