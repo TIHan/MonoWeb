@@ -119,9 +119,9 @@
     <Content Include="App\viewmodels\home.js" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.cshtml" />
     <None Include="App\durandal\amd\optimizer.exe" />
     <None Include="Scripts\jquery-1.9.1.min.map" />
+    <None Include="index.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
