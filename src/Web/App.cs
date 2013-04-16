@@ -1,13 +1,9 @@
 using System;
 using System.Web.UI;
-using System.Web.Routing;
-using Microsoft.AspNet.SignalR;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
-
-[assembly: WebActivator.PreApplicationStartMethod(typeof(MonoWeb.AppHost), "Start")]
 
 namespace MonoWeb {
 	public class AppHost : AppHostBase {		
@@ -19,6 +15,7 @@ namespace MonoWeb {
 	        SetConfig(new EndpointHostConfig {
 	            ServiceStackHandlerFactoryPath = "api"
 	        });
+
 			
 			//Enable Authentication
 			//ConfigureAuth(container);
@@ -56,11 +53,6 @@ namespace MonoWeb {
 			authRepo.CreateMissingTables();
 		}
 		*/
-		
-		public static void Start() {
-			RouteTable.Routes.MapConnection<PersistentEndpoint>("echo", "/echo");
-			new AppHost().Init();
-		}
 	}
 
 	//A customizeable typed UserSession that can be extended with your own properties

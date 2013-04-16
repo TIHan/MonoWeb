@@ -3,11 +3,9 @@ define(function (require) {
     
     function service() {
     	var self = this;    	
-	    // SignalR
-	    var connection = $.connection('/echo');
 	    
 	    self.start = function () {
-		    return connection.start().done(function () {
+		    return $.connection.hub.start().done(function () {
 		    	system.log('SignalR successfully connected.');
 		    }).fail(function () {
 		    	system.log('SignalR failed to connected.');
@@ -15,7 +13,6 @@ define(function (require) {
 	    }
 	    
 	    self.send = function (message) {
-	    	return connection.send(message);
 	    }
     }
     

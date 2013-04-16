@@ -41,9 +41,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Core" />
-    <Reference Include="WebActivator">
-      <HintPath>..\..\lib\WebActivator.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Common">
       <HintPath>..\..\lib\ServiceStack.Common.dll</HintPath>
     </Reference>
@@ -83,6 +80,7 @@
     <Reference Include="Microsoft.AspNet.SignalR.Owin">
       <HintPath>..\..\lib\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -135,6 +133,7 @@
     <Content Include="App\views\home.html" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="App\service.js" />
+    <Content Include="Global.asax" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />
@@ -144,7 +143,10 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Services.cs" />
-    <Compile Include="PersistentEndpoint.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="AppHub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\" />
