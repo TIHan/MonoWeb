@@ -14,12 +14,6 @@
         /*************************************************************************/
 
         self.activate = function () {
-		    // SignalR
-		    var connection = $.connection('/echo');
-		    connection.start(function () {
-		    	alert('hi');
-		    });
-
 			return true;
         };
 

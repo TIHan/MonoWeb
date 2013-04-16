@@ -11,11 +11,14 @@ using ServiceStack.WebHost.Endpoints;
 
 namespace MonoWeb {
 	public class AppHost : AppHostBase {		
-		public AppHost() : base("App", typeof(AppService).Assembly) { }
+		public AppHost() : base("App", typeof(AppHost).Assembly) { }
 		
 		public override void Configure(Funq.Container container) {
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
-		
+
+	        SetConfig(new EndpointHostConfig {
+	            ServiceStackHandlerFactoryPath = "api"
+	        });
 			
 			//Enable Authentication
 			//ConfigureAuth(container);
@@ -55,8 +58,8 @@ namespace MonoWeb {
 		*/
 		
 		public static void Start() {
-			new AppHost().Init();
 			RouteTable.Routes.MapConnection<PersistentEndpoint>("echo", "/echo");
+			new AppHost().Init();
 		}
 	}
 
