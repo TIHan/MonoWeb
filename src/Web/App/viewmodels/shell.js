@@ -17,7 +17,7 @@
         self.activate = function() {
             router.mapRoute('home', 'viewmodels/home', "Home", true);
             router.activate('home');
-            service.start();
+            return service.start();
         };
 
         self.router = router;

@@ -1,6 +1,7 @@
 ﻿define(function (require) {
     var system = require('durandal/system');
 	var http = require("http");
+	var service = require('service');
 
     function vm() {
         /*************************************************************************/
