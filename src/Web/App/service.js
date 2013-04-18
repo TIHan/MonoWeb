@@ -3,7 +3,7 @@ define(function (require) {
     
     var appHub = $.connection.appHub;
     
-	appHub.client.logMessage = function (message) {
+	appHub.client.log = function (message) {
 		system.log(message);
 	}
 
@@ -11,8 +11,7 @@ define(function (require) {
     	var self = this;    	
 	    
 	    self.start = function () {
-			$.connection.hub.url = 'http://localhost:8080/signalr';
-		    return $.connection.hub.start({ jsonp: true }).done(function () {
+		    $.connection.hub.start().done(function () {
 		    	system.log('SignalR successfully connected.');
 		    	appHub.server.heartbeat();
 		    }).fail(function () {

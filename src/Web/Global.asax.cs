@@ -10,7 +10,7 @@ namespace MonoWeb {
 	public class Global : System.Web.HttpApplication {
 		
 		protected virtual void Application_Start (Object sender, EventArgs e) {
-			RouteTable.Routes.MapHubs(new HubConfiguration() { EnableCrossDomain = true });
+			RouteTable.Routes.MapHubs();
 			new AppHost().Init();
 		}
 		

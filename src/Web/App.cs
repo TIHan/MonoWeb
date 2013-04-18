@@ -12,9 +12,6 @@ namespace MonoWeb {
 		public override void Configure(Funq.Container container) {
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
-	        SetConfig(new EndpointHostConfig {
-	            ServiceStackHandlerFactoryPath = "api"
-	        });
 
 			
 			//Enable Authentication
