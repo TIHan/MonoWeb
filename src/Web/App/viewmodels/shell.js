@@ -1,7 +1,6 @@
 ﻿define(function (require) {
     var app = require('durandal/app');
     var router = require('durandal/plugins/router');
-    var service = require('service');
 
     function vm() {
         /*************************************************************************/
@@ -17,7 +16,7 @@
         self.activate = function() {
             router.mapRoute('home', 'viewmodels/home', "Home", true);
             router.activate('home');
-            return service.start();
+			return true;
         };
 
         self.router = router;

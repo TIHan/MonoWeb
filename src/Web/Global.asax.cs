@@ -4,13 +4,11 @@ using System.ComponentModel;
 using System.Web;
 using System.Web.SessionState;
 using System.Web.Routing;
-using Microsoft.AspNet.SignalR;
 
 namespace MonoWeb {
 	public class Global : System.Web.HttpApplication {
 		
 		protected virtual void Application_Start (Object sender, EventArgs e) {
-			RouteTable.Routes.MapHubs();
 			new AppHost().Init();
 		}
 		
