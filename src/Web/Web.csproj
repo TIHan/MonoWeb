@@ -63,6 +63,7 @@
       <HintPath>..\..\lib\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -81,7 +82,6 @@
   </ProjectExtensions>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="App\http.js" />
     <Content Include="App\main.js" />
     <Content Include="App\durandal\app.js" />
     <Content Include="App\durandal\composition.js" />
@@ -115,6 +115,7 @@
     <Content Include="Scripts\knockout.min.js" />
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\sammy.min.js" />
+    <Content Include="App\api.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />

@@ -1,9 +1,11 @@
 define(function (require) {
     var system = require('durandal/system');
     
+    var path = ""; 
+    
     function ajax(url, data, type) {
         return $.ajax({
-            url: url,
+            url: path + url,
             data: ko.toJSON(data || { }),
             type: type,
             contentType: 'application/json',
@@ -15,7 +17,7 @@ define(function (require) {
     return {
         get: function (url, query) {
             return $.ajax({
-            	url: url,
+            	url: path + url + (query ? '?' + $.param(query) : ''),
             	type: "GET",
             	contentType: 'application/json',
             	cache: false
@@ -31,6 +33,9 @@ define(function (require) {
         },
         del: function (url, data) {
             return ajax(url, data, 'DELETE');
+        },
+        setPath: function (newPath) {
+        	path = newPath;
         }
     };
 });

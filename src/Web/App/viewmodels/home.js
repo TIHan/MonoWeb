@@ -1,6 +1,6 @@
 ﻿define(function (require) {
     var system = require('durandal/system');
-	var http = require("http");
+	var api = require('api');
 
     function vm() {
         /*************************************************************************/
@@ -14,7 +14,9 @@
         /*************************************************************************/
 
         self.activate = function () {
-			return true;
+			return api.get('/testquery', { field1: 'Test1', field2: 'Test2' }).done(function (response) {
+				system.log('Received: ' + response.message);
+			});
         };
 
         self.canActivate = function () {

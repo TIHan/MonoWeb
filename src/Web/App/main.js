@@ -9,6 +9,7 @@ define(function (require) {
     var router = require('durandal/plugins/router');
     var composition = require('durandal/composition');
     var widget = require('durandal/widget');
+    var api = require('api');
 
     $.ajaxSetup({
         error: function (jqXHR) {
@@ -25,6 +26,7 @@ define(function (require) {
         router.useConvention();
         viewLocator.useConvention();
         composition.activateDuringComposition = true;
+        api.setPath('/api');
         app.setRoot('viewmodels/shell');
     });
 });
