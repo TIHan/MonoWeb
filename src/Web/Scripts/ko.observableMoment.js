@@ -31,18 +31,7 @@
 
             calendar: function () {
                 return observable.moment().calendar();
-            },
-
-            shortformat: ko.computed(function () {
-                if (!observable()) {
-                    return undefined;
-                }
-                if (moment(observable()) > moment().startOf('day')) {
-                    return observable.moment().local().format('h:mm A');
-                } else {
-                    return observable.moment().local().format('M/D/YYYY');
-                }
-            })
+            }
         });
 
         return observable;

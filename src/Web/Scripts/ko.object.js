@@ -63,6 +63,18 @@
         });
     }
     
+    function toObservable(obj) {
+    	var observable = _.isArray(obj) ? [] : {};
+        _.each(obj, function (v, k) {
+        	if (_.contains(v, '\/')) { // Hack: Usually a date here.
+        		observable[k] = ko.observableMoment(v);
+        	} else {
+            	observable[k] = _.isInstance(v) ? toObservable(v) : ko.observable(v);
+        	}
+        });
+        return observable;
+    }
+    
     ko.extenders.ctor = function (target, ctor) {
         target.ctor = ctor;
         return target;
@@ -83,6 +95,9 @@
     };
 
     ko.object = {
+    	toObservable: function (obj) {
+    		return toObservable(obj);
+    	},
         create: function (ctor, obj, explicitMappings) {
             // Only allow functions, not including observables.
             if (ko.isObservable(ctor) || !_.isFunction(ctor)) {

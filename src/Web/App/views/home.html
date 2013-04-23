@@ -1,3 +1,29 @@
 ﻿<div>
 	<h1>Home</h1>
+	
+	<dl class="dl-horizontal">
+		<dt>Test Get:</dt>
+		<dd>
+			<div data-bind="with: testGetResponse">
+				<p data-bind="text: message"></p>
+				<p data-bind="text: timestamp.format('h:mm A')"></p>
+			</div>
+		</dd>
+		
+		<dt>Test Message Get:</dt>
+		<dd>
+			<div data-bind="with: testMessageGetResponse">
+				<p data-bind="text: message"></p>
+				<p data-bind="text: timestamp.format('h:mm A')"></p>
+			</div>
+		</dd>
+		
+		<dt>Test Query:</dt>
+		<dd>
+			<div data-bind="with: testQueryGetResponse">
+				<p data-bind="text: message"></p>
+				<p data-bind="text: timestamp.format('h:mm A')"></p>
+			</div>
+		</dd>
+	</dl>
 </div>
