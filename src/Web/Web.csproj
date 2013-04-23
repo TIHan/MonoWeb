@@ -103,22 +103,21 @@
     <Content Include="App\durandal\plugins\router.js" />
     <Content Include="App\viewmodels\shell.js" />
     <Content Include="App\views\shell.html" />
-    <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.1.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\knockout-2.2.1.debug.js" />
-    <Content Include="Scripts\knockout-2.2.1.js" />
-    <Content Include="Scripts\sammy-0.7.4.js" />
-    <Content Include="Scripts\sammy-0.7.4.min.js" />
     <Content Include="Content\durandal.css" />
     <Content Include="Content\site.css" />
     <Content Include="App\views\home.html" />
     <Content Include="App\viewmodels\home.js" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\ko.object.js" />
+    <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\ko.observableMoment.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\knockout.min.js" />
+    <Content Include="Scripts\jquery.min.js" />
+    <Content Include="Scripts\sammy.min.js" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />
-    <None Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="index.html" />
   </ItemGroup>
   <ItemGroup>
