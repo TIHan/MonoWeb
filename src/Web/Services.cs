@@ -9,11 +9,13 @@ namespace MonoWeb {
 	public class TestRequest {
 	}
 
-	[Route("/test")]
-	[Route("/test/{Message}")]
+
+	[Route("/test/message")]
+	[Route("/test/message/{Message}")]
 	public class TestMessageRequest {
 		public string Message { get; set; }
 	}
+
 
 	// Query string example.
 	[Route("/testquery")]
@@ -21,6 +23,7 @@ namespace MonoWeb {
 		public string Field1 { get; set; }		
 		public string Field2 { get; set; }
 	}
+
 
 	public class TestResponse {
 		public string Message { get; set; }
@@ -30,6 +33,7 @@ namespace MonoWeb {
 			Timestamp = DateTime.UtcNow;
 		}
 	}
+
 
 	public class AppService : Service {
 		public TestResponse Get(TestRequest request) {

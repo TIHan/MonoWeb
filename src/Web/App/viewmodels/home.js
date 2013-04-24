@@ -19,7 +19,7 @@
         		self.testGetResponse(ko.object.toObservable(response));
         	});
         	
-        	var testMessageGet = api.get('/test/' + 'Custom').done(function (response) {
+        	var testMessageGet = api.get('/test/message/' + 'Custom').done(function (response) {
         		self.testMessageGetResponse(ko.object.toObservable(response));
         	});
         	
@@ -27,7 +27,32 @@
 				self.testQueryGetResponse(ko.object.toObservable(response));
 			});
 			
-			return $.when(testGet, testMessageGet, testQueryGet);
+			var testPost = api.post('/test').done(function (response) {
+				self.testPostResponse(ko.object.toObservable(response));
+			});
+			
+			var testMessagePost = api.post('/test/message', { message: 'Custom' }).done(function (response) {
+				self.testMessagePostResponse(ko.object.toObservable(response));
+			});
+			
+			var testPut = api.put('/test').done(function (response) {
+				self.testPutResponse(ko.object.toObservable(response));
+			});
+			
+			var testMessagePut = api.put('/test/message', { message: 'Custom' }).done(function (response) {
+				self.testMessagePutResponse(ko.object.toObservable(response));
+			});
+			
+			var testDelete = api.del('/test').done(function (response) {
+				self.testDeleteResponse(ko.object.toObservable(response));
+			});
+			
+			var testMessageDelete = api.del('/test/message', { message: 'Custom' }).done(function (response) {
+				self.testMessageDeleteResponse(ko.object.toObservable(response));
+			});
+			
+			return $.when(testGet, testMessageGet, testQueryGet, testPost,
+					testMessagePost, testPut, testMessagePut, testDelete, testMessageDelete);
         };
 
         self.canActivate = function () {
