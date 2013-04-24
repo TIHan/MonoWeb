@@ -33,7 +33,7 @@ define(function (require) {
     	init: function () {
 			router.guardRoute = function (routeInfo, params, instance) {
 				var defer;
-				if (routeInfo.name == 'Login') {
+				if (routeInfo.hash == loginPath) {
 			        defer = system.defer(function () {
 			            ajax('/auth/info', null, 'GET')
 			                .then(function (response) {
