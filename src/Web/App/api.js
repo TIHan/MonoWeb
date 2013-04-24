@@ -77,11 +77,7 @@ define(function (require) {
             return ajax(url, data, 'DELETE');
         },
         login: function (userName, password, rememberMe) {
-        	return ajax('/auth/credentials', { userName: userName, password: password, rememberMe: rememberMe }, 'POST').done(function () {
-        		ajax('/auth/info', null, 'GET').done(function (response) {
-        			ko.object.map(info, response);
-        		});
-        	});
+        	return ajax('/auth/credentials', { userName: userName, password: password, rememberMe: rememberMe }, 'POST');
         },
         logout: function () {
         	info.displayName(null);
