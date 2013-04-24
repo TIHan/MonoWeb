@@ -1,8 +1,11 @@
 using System;
 using System.Web.UI;
+using System.Collections.Generic;
 using ServiceStack.Common;
+using ServiceStack.WebHost;
 using ServiceStack.ServiceHost;
 using ServiceStack.CacheAccess;
+using ServiceStack.CacheAccess.Providers;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
@@ -20,95 +23,45 @@ namespace MonoWeb {
 			});
 			
 			//Enable Authentication
-			//ConfigureAuth(container);
-			
-			//Register all your dependencies
-			//container.Register(new TodoRepository());			
+			ConfigureAuth(container);
 		}
-		
-		/* Uncomment to enable ServiceStack Authentication and CustomUserSession
+
+		// https://github.com/ServiceStack/ServiceStack/wiki/Authentication-and-authorization
 		private void ConfigureAuth(Funq.Container container)
 		{
-			var appSettings = new AppSettings();
+			Plugins.Add(new AuthFeature(() => new AuthUserSession(), new IAuthProvider[] {
+				new CredentialsAuthProvider()
+			}));
+			
+			container.Register<ICacheClient>(new MemoryCacheClient());
+			var userRep = new InMemoryAuthRepository();
+			container.Register<IUserAuthRepository>(userRep);
 
-			//Default route: /auth/{provider}
-			Plugins.Add(new AuthFeature(() => new CustomUserSession(),
-				new IAuthProvider[] {
-					new CredentialsAuthProvider(appSettings), 
-					new FacebookAuthProvider(appSettings), 
-					new TwitterAuthProvider(appSettings), 
-					new BasicAuthProvider(appSettings), 
-				})); 
+#if DEBUG
+			CreateUser(userRep, 1, "admin", "admin@admin.com", "password", null, null);
+#endif
+			
+			//The IUserAuthRepository is used to store the user credentials etc.
+			//Implement this interface to adjust it to your application's data storage.	
+		}
 
-			//Default route: /register
-			Plugins.Add(new RegistrationFeature()); 
+		private void CreateUser(IUserAuthRepository userRep, int id, string userName, string email, string password, List<string> roles = null, List<string> permissions = null) {
+			string hash;
+			string salt;
+			new SaltedHash().GetHashAndSaltString(password, out hash, out salt);
 
-			//Requires ConnectionString configured in Web.Config
-			var connectionString = ConfigurationManager.ConnectionStrings["AppDb"].ConnectionString;
-			container.Register<IDbConnectionFactory>(c =>
-				new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
-
-			container.Register<IUserAuthRepository>(c =>
-				new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
-
-			var authRepo = (OrmLiteAuthRepository)container.Resolve<IUserAuthRepository>();
-			authRepo.CreateMissingTables();
-		}
-		*/
-	}
-
-	//A customizeable typed UserSession that can be extended with your own properties
-	public class CustomUserSession : AuthUserSession
-	{
-		public string CustomProperty { get; set; }
-	}
-	
-	public class PageBase : Page
-	{
-		/// <summary>
-		/// Typed UserSession
-		/// </summary>
-		private object userSession;
-		protected virtual TUserSession SessionAs<TUserSession>()
-		{
-			return (TUserSession)(userSession ?? (userSession = Cache.SessionAs<TUserSession>()));
-		}
-		
-		protected CustomUserSession UserSession
-		{
-			get
-			{
-				return SessionAs<CustomUserSession>();
-			}
-		}
-		
-		public new ICacheClient Cache
-		{
-			get { return AppHostBase.Resolve<ICacheClient>(); }
-		}
-		
-		private ISessionFactory sessionFactory;
-		public virtual ISessionFactory SessionFactory
-		{
-			get { return sessionFactory ?? (sessionFactory = AppHostBase.Resolve<ISessionFactory>()) ?? new SessionFactory(Cache); }
-		}
-		
-		/// <summary>
-		/// Dynamic Session Bag
-		/// </summary>
-		private ISession session;
-		public new ISession Session
-		{
-			get
-			{
-				return session ?? (session = SessionFactory.GetOrCreateSession());
-			}
-		}
-		
-		public void ClearSession()
-		{
-			userSession = null;
-			this.Cache.Remove(SessionFeature.GetSessionKey());
+			userRep.CreateUserAuth(new UserAuth {
+			Id = id,
+			DisplayName = "DisplayName",
+			Email = email,
+			UserName = userName,
+			FirstName = "FirstName",
+			LastName = "LastName",
+			PasswordHash = hash,
+			Salt = salt,
+			Roles = roles,
+			Permissions = permissions
+			}, password);
 		}
 	}
 }

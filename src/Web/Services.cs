@@ -1,10 +1,28 @@
 using System;
+using System.IO;
+using System.Net;
+using System.Text;
+using System.Web;
 using System.Runtime.Serialization;
 using System.Collections.Generic;
+using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
+using ServiceStack.Text;
 
 namespace MonoWeb {
+	[Route("/auth/info")]
+	public class AuthInfoRequest { }
+
+
+	[Authenticate]
+	public class AuthService : Service {
+		public object Get(AuthInfoRequest request) {
+			return this.GetSession();
+		}
+	}
+
+
 	[Route("/test")]
 	public class TestRequest { }
 
@@ -39,6 +57,7 @@ namespace MonoWeb {
 	}
 
 
+	[Authenticate]
 	public class AppService : Service {
 		public TestResponse Get(TestRequest request) {
 			return new TestResponse { Message = "No Passed Message" };

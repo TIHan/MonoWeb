@@ -1,5 +1,6 @@
 ﻿define(function (require) {
     var system = require('durandal/system');
+    var router = require('durandal/plugins/router');
 	var api = require('api');
 
     function vm() {
@@ -80,6 +81,14 @@
         
         self.testDeleteResponse = ko.observable();
         self.testMessageDeleteResponse = ko.observable();
+        
+        self.displayName = api.displayName;
+        
+        self.logout = function () {
+        	api.logout().done(function () {
+				router.navigateTo('#/login');
+        	});
+        };
 
         /*************************************************************************/
         /* Events

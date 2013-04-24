@@ -11,14 +11,6 @@ define(function (require) {
     var widget = require('durandal/widget');
     var api = require('api');
 
-    $.ajaxSetup({
-        error: function (jqXHR) {
-            if (router.ready() && jqXHR.status == 401) {
-                // Handle unauthorized.
-            }
-        }
-    });
-
     system.debug(true);
 
     app.start().then(function () {

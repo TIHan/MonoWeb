@@ -116,6 +116,8 @@
     <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\sammy.min.js" />
     <Content Include="App\api.js" />
+    <Content Include="App\viewmodels\login.js" />
+    <Content Include="App\views\login.html" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />
