@@ -26,6 +26,13 @@
 			</div>
 		</dd>
 		
+		<dt>Test List:</dt>
+		<dd>
+			<div data-bind="foreach: testListGetResponse">
+				<p data-bind="text: $data"></p>
+			</div>
+		</dd>
+		
 		<dt>Test Post:</dt>
 		<dd>
 			<div data-bind="with: testPostResponse">

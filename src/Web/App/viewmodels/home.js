@@ -23,8 +23,12 @@
         		self.testMessageGetResponse(ko.object.toObservable(response));
         	});
         	
-        	var testQueryGet = api.get('/testquery', { field1: 'Test1', field2: 'Test2' }).done(function (response) {
+        	var testQueryGet = api.get('/testquery', { field1: 'Test1', field2: 'Test2', field3: 'Test3' }).done(function (response) {
 				self.testQueryGetResponse(ko.object.toObservable(response));
+			});
+			
+			var testListGet = api.get('/testlist').done(function (response) {
+				self.testListGetResponse(ko.object.toObservable(response));
 			});
 			
 			var testPost = api.post('/test').done(function (response) {
@@ -66,6 +70,7 @@
         self.testGetResponse = ko.observable();
         self.testMessageGetResponse = ko.observable();
         self.testQueryGetResponse = ko.observable();
+        self.testListGetResponse = ko.observable();
         
         self.testPostResponse = ko.observable();
         self.testMessagePostResponse = ko.observable();

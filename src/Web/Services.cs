@@ -6,8 +6,7 @@ using ServiceStack.ServiceInterface;
 
 namespace MonoWeb {
 	[Route("/test")]
-	public class TestRequest {
-	}
+	public class TestRequest { }
 
 
 	[Route("/test/message")]
@@ -22,7 +21,12 @@ namespace MonoWeb {
 	public class TestQueryRequest {
 		public string Field1 { get; set; }		
 		public string Field2 { get; set; }
+		public string Field3 { get; set; }
 	}
+
+
+	[Route("/testlist")]
+	public class TestListRequest : IReturn<string> { }
 
 
 	public class TestResponse {
@@ -45,7 +49,11 @@ namespace MonoWeb {
 		}
 
 		public TestResponse Get(TestQueryRequest request) {
-			return new TestResponse { Message = "Field1: " + request.Field1 + " - Field2: " + request.Field2 };
+			return new TestResponse { Message = "Field1: " + request.Field1 + " - Field2: " + request.Field2 + " - Field3: " + request.Field3 };
+		}
+
+		public IList<string> Get(TestListRequest request) {
+			return new List<string> { "Item1", "Item2", "Item3" };
 		}
 
 		public TestResponse Post(TestRequest request) {
