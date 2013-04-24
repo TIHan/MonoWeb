@@ -55,7 +55,7 @@
 				self.testMessageDeleteResponse(ko.object.toObservable(response));
 			});
 			
-			return $.when(testGet, testMessageGet, testQueryGet, testPost,
+			return $.when(testGet, testMessageGet, testQueryGet, testListGet, testPost,
 					testMessagePost, testPut, testMessagePut, testDelete, testMessageDelete);
         };
 

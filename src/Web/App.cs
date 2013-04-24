@@ -1,5 +1,7 @@
 using System;
 using System.Web.UI;
+using ServiceStack.Common;
+using ServiceStack.ServiceHost;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
@@ -12,7 +14,10 @@ namespace MonoWeb {
 		public override void Configure(Funq.Container container) {
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
-			SetConfig(new EndpointHostConfig { ServiceStackHandlerFactoryPath = "api" });
+			SetConfig(new EndpointHostConfig {
+				ServiceStackHandlerFactoryPath = "api",
+				EnableFeatures = Feature.All.Remove(Feature.Metadata)
+			});
 			
 			//Enable Authentication
 			//ConfigureAuth(container);
