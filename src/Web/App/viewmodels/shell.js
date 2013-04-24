@@ -1,7 +1,6 @@
 ﻿define(function (require) {
     var app = require('durandal/app');
     var router = require('durandal/plugins/router');
-    var api = require('api');
 
     function vm() {
         /*************************************************************************/
@@ -17,8 +16,8 @@
         self.activate = function() {
             router.mapRoute('home', 'viewmodels/home', "Home", true);
             router.mapRoute('login', 'viewmodels/login', 'Login', true);
-            router.activate('home');
-			return api.checkAuth();
+			router.activate('home');
+			return true;
         };
 
         self.router = router;

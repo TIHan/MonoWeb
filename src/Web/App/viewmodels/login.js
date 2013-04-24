@@ -19,7 +19,7 @@ define(function (require) {
         };
 
         self.canActivate = function () {
-            return api.reverseCheckAuth();
+            return true;
         };
 
         /*************************************************************************/

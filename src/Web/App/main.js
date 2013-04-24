@@ -18,6 +18,7 @@ define(function (require) {
         router.useConvention();
         viewLocator.useConvention();
         composition.activateDuringComposition = true;
+        api.init();
         api.setPath('/api');
         app.setRoot('viewmodels/shell');
     });

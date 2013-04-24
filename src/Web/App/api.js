@@ -7,6 +7,7 @@ define(function (require) {
 	};
     var path = '';
     var unauthorizedRedirectPath = '#/login';
+    var loginPath = '#/login';
     
     $.ajaxSetup({
         error: function (jqXHR) {
@@ -26,8 +27,36 @@ define(function (require) {
             system.log(type + ' Error', error);
         });
     };
+
     
     var api = {
+    	init: function () {
+			router.guardRoute = function (routeInfo, params, instance) {
+				var defer;
+				if (routeInfo.name == 'Login') {
+			        defer = system.defer(function () {
+			            ajax('/auth/info', null, 'GET')
+			                .then(function (response) {
+			                    ko.object.map(info, response);
+			                    defer.resolve('#/');
+			                }).fail(function () {
+			                    defer.resolve(true);
+			                });
+			        });
+				} else {
+			        defer = system.defer(function () {
+			            ajax('/auth/info', null, 'GET')
+			                .then(function (response) {
+			                    ko.object.map(info, response);
+			                    defer.resolve(true);
+			                }).fail(function () {
+			                    defer.resolve(loginPath);
+			                });
+			        });
+		        }
+		        return defer.promise();
+			};
+    	},
         get: function (url, query) {
             return $.ajax({
             	url: path + url + (query ? '?' + $.param(query) : ''),
@@ -58,33 +87,6 @@ define(function (require) {
         	info.displayName(null);
         	return ajax('/auth/logout', null, 'POST');
         },
-        checkAuth: function () {
-	        system.log('Checking authentication...');
-	        var defer = system.defer(function () {
-	            ajax('/auth/info', null, 'GET')
-	                .then(function (response) {
-	                    system.log('User is authenticated.');
-	                    ko.object.map(info, response);
-	                    defer.resolve(true);
-	                }).fail(function () {
-	                    system.log('User is not authenticated.');
-	                    defer.resolve(false);
-	                });
-	        });
-	        return defer.promise();
-        },
-      	reverseCheckAuth: function () {
-	        var defer = system.defer(function () {
-	            api.checkAuth().then(function(isAuthorized) {
-	                if (isAuthorized) {
-	                    defer.resolve(false);
-	                } else {
-	                    defer.resolve(true);
-	                }
-	            });
-	        });
-	        return defer.promise();
-      	},
         displayName: ko.computed(function () {
         	return info.displayName();
         }),
@@ -92,7 +94,10 @@ define(function (require) {
         	path = newPath;
         },
         setUnauthorizedRedirectPath: function (newPath) {
-        	unauthorizedRedirectPath = '#' + newPath;
+        	unauthorizedRedirectPath = newPath;
+        },
+        setLoginPath: function (newPath) {
+        	loginPath = newPath;
         }
     };
     
