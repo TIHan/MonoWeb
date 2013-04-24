@@ -81,7 +81,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <Content Include="Web.config" />
     <Content Include="App\main.js" />
     <Content Include="App\durandal\app.js" />
     <Content Include="App\durandal\composition.js" />
@@ -118,10 +117,11 @@
     <Content Include="App\api.js" />
     <Content Include="App\viewmodels\login.js" />
     <Content Include="App\views\login.html" />
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App\durandal\amd\optimizer.exe" />
-    <None Include="index.html" />
+    <None Include="default.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
