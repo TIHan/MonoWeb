@@ -5,21 +5,21 @@ define(function (require) {
 	var info = {
 		displayName: ko.observable()
 	};
-    var path = '';
-    var unauthorizedRedirectPath = '#/login';
-    var loginPath = '#/login';
+    var apiPath = '';
+    var unauthorizedRedirectRoute = '#/login';
+    var loginRoute = '#/login';
     
     $.ajaxSetup({
         error: function (jqXHR) {
             if (router.ready() && jqXHR.status == 401) {
-                router.navigateTo(unauthorizedRedirectPath);
+                router.navigateTo(unauthorizedRedirectRoute);
             }
         }
     });
     
     function ajax(url, data, type) {
         return $.ajax({
-            url: path + url,
+            url: apiPath + url,
             data: ko.toJSON(data || { }),
             type: type,
             contentType: 'application/json',
@@ -33,7 +33,7 @@ define(function (require) {
     	init: function () {
 			router.guardRoute = function (routeInfo, params, instance) {
 				var defer;
-				if (routeInfo.hash == loginPath) {
+				if (routeInfo.hash == loginRoute) {
 			        defer = system.defer(function () {
 			            ajax('/auth/info', null, 'GET')
 			                .then(function (response) {
@@ -50,7 +50,7 @@ define(function (require) {
 			                    ko.object.map(info, response);
 			                    defer.resolve(true);
 			                }).fail(function () {
-			                    defer.resolve(loginPath);
+			                    defer.resolve(loginRoute);
 			                });
 			        });
 		        }
@@ -59,7 +59,7 @@ define(function (require) {
     	},
         get: function (url, query) {
             return $.ajax({
-            	url: path + url + (query ? '?' + $.param(query) : ''),
+            	url: apiPath + url + (query ? '?' + $.param(query) : ''),
             	type: "GET",
             	contentType: 'application/json',
             	cache: false
@@ -90,14 +90,14 @@ define(function (require) {
         displayName: ko.computed(function () {
         	return info.displayName();
         }),
-        setPath: function (newPath) {
-        	path = newPath;
+        setPath: function (path) {
+        	apiPath = path;
         },
-        setUnauthorizedRedirectPath: function (newPath) {
-        	unauthorizedRedirectPath = newPath;
+        setUnauthorizedRedirectRoute: function (route) {
+        	unauthorizedRedirectRoute = route;
         },
-        setLoginPath: function (newPath) {
-        	loginPath = newPath;
+        setLoginRoute: function (route) {
+        	loginRoute = route;
         }
     };
     
