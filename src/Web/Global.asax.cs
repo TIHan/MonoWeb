@@ -6,8 +6,7 @@ using System.Web.SessionState;
 using System.Web.Routing;
 
 namespace MonoWeb {
-	public class Global : System.Web.HttpApplication {
-		
+	public class Global : System.Web.HttpApplication {	
 		protected virtual void Application_Start (Object sender, EventArgs e) {
 			new AppHost().Init();
 		}
