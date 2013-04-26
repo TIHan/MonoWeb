@@ -44,7 +44,7 @@ namespace MonoWeb {
 
 
 	[Route("/testlist")]
-	public class TestListRequest : IReturn<string> { }
+	public class TestListRequest { }
 
 
 	public class TestResponse {
@@ -71,8 +71,8 @@ namespace MonoWeb {
 			return new TestResponse { Message = "Field1: " + request.Field1 + " - Field2: " + request.Field2 + " - Field3: " + request.Field3 };
 		}
 
-		public IList<string> Get(TestListRequest request) {
-			return new List<string> { "Item1", "Item2", "Item3" };
+		public IList<TestResponse> Get(TestListRequest request) {
+			return new List<TestResponse> { new TestResponse { Message = "Item1" }, new TestResponse { Message = "Item2" }, new TestResponse { Message = "Item3" } };
 		}
 
 		public TestResponse Post(TestRequest request) {

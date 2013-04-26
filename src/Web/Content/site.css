@@ -51,7 +51,7 @@ table {
 
 /* App Css */
 
-/* FLUID LAYOUT */
+/* FIXED-FLUID LAYOUT */
 
 #shell {
     position: fixed;
@@ -61,26 +61,26 @@ table {
     top: 0;
 }
 
-#shell > .fluid-container {
+#shell > .fixed-fluid-container {
     max-width: 100%;
     height: 100%;
 }
 
-.fluid-container > div {
+.fixed-fluid-container > div {
     position: absolute;
 }
 
-.fluid-container > div {
+.fixed-fluid-container > div {
     height: 100%;
     float: left;
 }
 
-.fluid-container > div:first-child {
+.fixed-fluid-container > div:first-child {
     width: 100%;
     float: right;     
 }
 
-.fluid-container > div:first-child > div {
+.fixed-fluid-container > div:first-child > div {
 	height: 100%;
 }
 

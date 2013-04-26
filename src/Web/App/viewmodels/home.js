@@ -16,46 +16,16 @@
 
         self.activate = function () {
         	// These are test API calls. Remove them.
-        	var testGet = api.get('/test').done(function (response) {
-        		self.testGetResponse(ko.object.toObservable(response));
-        	});
-        	
-        	var testMessageGet = api.get('/test/message/' + 'Custom').done(function (response) {
-        		self.testMessageGetResponse(ko.object.toObservable(response));
-        	});
-        	
-        	var testQueryGet = api.get('/testquery', { field1: 'Test1', field2: 'Test2', field3: 'Test3' }).done(function (response) {
-				self.testQueryGetResponse(ko.object.toObservable(response));
-			});
-			
-			var testListGet = api.get('/testlist').done(function (response) {
-				self.testListGetResponse(ko.object.toObservable(response));
-			});
-			
-			var testPost = api.post('/test').done(function (response) {
-				self.testPostResponse(ko.object.toObservable(response));
-			});
-			
-			var testMessagePost = api.post('/test/message', { message: 'Custom' }).done(function (response) {
-				self.testMessagePostResponse(ko.object.toObservable(response));
-			});
-			
-			var testPut = api.put('/test').done(function (response) {
-				self.testPutResponse(ko.object.toObservable(response));
-			});
-			
-			var testMessagePut = api.put('/test/message', { message: 'Custom' }).done(function (response) {
-				self.testMessagePutResponse(ko.object.toObservable(response));
-			});
-			
-			var testDelete = api.del('/test').done(function (response) {
-				self.testDeleteResponse(ko.object.toObservable(response));
-			});
-			
-			var testMessageDelete = api.del('/test/message', { message: 'Custom' }).done(function (response) {
-				self.testMessageDeleteResponse(ko.object.toObservable(response));
-			});
-			
+        	var testGet = api.map.get(self.testGetResponse, '/test');     	
+        	var testMessageGet = api.map.get(self.testMessageGetResponse, '/test/message/' + 'Custom');       	
+        	var testQueryGet = api.map.get(self.testQueryGetResponse, '/testquery', { field1: 'Test1', field2: 'Test2', field3: 'Test3' });			
+			var testListGet = api.map.get(self.testListGetResponse, '/testlist');			
+			var testPost = api.map.post(self.testPostResponse, '/test');			
+			var testMessagePost = api.map.post(self.testMessagePostResponse, '/test/message', { message: 'Custom' });			
+			var testPut = api.map.put(self.testPutResponse, '/test');			
+			var testMessagePut = api.map.put(self.testMessagePutResponse, '/test/message', { message: 'Custom' });			
+			var testDelete = api.map.del(self.testDeleteResponse, '/test');			
+			var testMessageDelete = api.map.del(self.testMessageDeleteResponse, '/test/message', { message: 'Custom' });			
 			return $.when(testGet, testMessageGet, testQueryGet, testListGet, testPost,
 					testMessagePost, testPut, testMessagePut, testDelete, testMessageDelete);
         };
@@ -68,10 +38,15 @@
         /* Non-Conventional
         /*************************************************************************/
         
-        self.testGetResponse = ko.observable();
+        self.testGetResponse = ko.observable().construct({
+        	message: ko.observable(),
+        	timestamp: ko.observableMoment()
+        });
         self.testMessageGetResponse = ko.observable();
         self.testQueryGetResponse = ko.observable();
-        self.testListGetResponse = ko.observable();
+        self.testListGetResponse = ko.observableArray().construct({
+			message: ko.observable()
+        });
         
         self.testPostResponse = ko.observable();
         self.testMessagePostResponse = ko.observable();

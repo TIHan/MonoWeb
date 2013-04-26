@@ -1,4 +1,11 @@
 (function () {
+	ko.isObservableMoment = function (observable) {
+		if (ko.isObservable(observable) && observable.moment) {
+			return true;
+		}
+		return false;
+	};
+	
     ko.observableMoment = function (initialValue) {
         var observable = ko.observable(initialValue);
 

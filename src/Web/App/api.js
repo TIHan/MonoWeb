@@ -6,9 +6,12 @@ define(function (require) {
 		displayName: ko.observable()
 	};
     var apiPath = '';
-    var unauthorizedRedirectRoute = '#/login';
     var loginRoute = '#/login';
+    var unauthorizedRedirectRoute = loginRoute;
+    var contentType = 'application/json';
     
+    // When the router is ready and the return status of any ajax request is 401,
+    // navigate to the unauthorized redirect route.
     $.ajaxSetup({
         error: function (jqXHR) {
             if (router.ready() && jqXHR.status == 401) {
@@ -17,55 +20,72 @@ define(function (require) {
         }
     });
     
+    // Logs any failures on ajax calls.
+    function ajaxError(type, error) {
+    	system.log(type + ' Error', error);
+    }
+    
+    // Common ajax wrapper.
     function ajax(url, data, type) {
         return $.ajax({
             url: apiPath + url,
-            data: ko.toJSON(data || { }),
+            data: data ? ko.toJSON(data) : null,
             type: type,
-            contentType: 'application/json',
+            contentType: contentType,
         }).fail(function (error) {
-            system.log(type + ' Error', error);
+            ajaxError(type, error);
         });
     };
-
+    
+    // Ajax get wrapper.
+ 	function ajaxGet(url, query) {
+ 		var type = 'GET';
+        return $.ajax({
+        	url: apiPath + url + (query ? '?' + $.param(query) : ''),
+        	type: type,
+        	contentType: contentType,
+        	cache: false
+        }).fail(function (error) {
+        	ajaxError(type, error);
+        });
+ 	}
+ 	
+ 	function ajaxMap(mapped, ajax) {
+ 		return ajax.success(function (response) {
+ 			ko.object.map(mapped, response);
+ 		});
+ 	}
+    
+    // Wraps promises in a newly created deferred with specified resolve values.
+    function deferPromise(promise, successResolve, failResolve) {    		
+    	var defer = system.defer(function () {
+			promise.then(function () {
+				defer.resolve(successResolve);
+    		}, function () {
+    			defer.resolve(failResolve);
+    		});    	 		
+    	});
+    	return defer.promise();
+    }
+    
+    // Gets the authorization info of the currently logged in user.
+    // This is also used to check to see if the user is logged in.
+    function getAuthInfo() {
+    	return ajaxMap(info, ajaxGet('/auth/info'));
+    }
+    
     
     var api = {
     	init: function () {
 			router.guardRoute = function (routeInfo, params, instance) {
-				var defer;
 				if (routeInfo.hash == loginRoute) {
-			        defer = system.defer(function () {
-			            ajax('/auth/info', null, 'GET')
-			                .then(function (response) {
-			                    ko.object.map(info, response);
-			                    defer.resolve('#/');
-			                }).fail(function () {
-			                    defer.resolve(true);
-			                });
-			        });
-				} else {
-			        defer = system.defer(function () {
-			            ajax('/auth/info', null, 'GET')
-			                .then(function (response) {
-			                    ko.object.map(info, response);
-			                    defer.resolve(true);
-			                }).fail(function () {
-			                    defer.resolve(loginRoute);
-			                });
-			        });
-		        }
-		        return defer.promise();
+			        return deferPromise(getAuthInfo(), '#/', true);
+				}			
+		        return deferPromise(getAuthInfo(), true, unauthorizedRedirectRoute);
 			};
     	},
         get: function (url, query) {
-            return $.ajax({
-            	url: apiPath + url + (query ? '?' + $.param(query) : ''),
-            	type: "GET",
-            	contentType: 'application/json',
-            	cache: false
-            }).fail(function (error) {
-            	system.log("GET Error", error);
-            });
+        	return ajaxGet(url, query);
         },
         post: function (url, data) {
             return ajax(url, data, 'POST');
@@ -76,6 +96,20 @@ define(function (require) {
         del: function (url, data) {
             return ajax(url, data, 'DELETE');
         },
+		map: {
+		        get: function (mapped, url, query) {
+		        	return ajaxMap(mapped, ajaxGet(url, query));
+		        },
+		        post: function (mapped, url, data) {
+		            return ajaxMap(mapped, ajax(url, data, 'POST'));
+		        },
+		        put: function (mapped, url, data) {
+		            return ajaxMap(mapped, ajax(url, data, 'PUT'));
+		        },
+		        del: function (mapped, url, data) {
+		            return ajaxMap(mapped, ajax(url, data, 'DELETE'));
+		        },
+		},
         login: function (userName, password, rememberMe) {
         	return ajax('/auth/credentials', { userName: userName, password: password, rememberMe: rememberMe }, 'POST');
         },
@@ -89,12 +123,12 @@ define(function (require) {
         setPath: function (path) {
         	apiPath = path;
         },
+        setLoginRoute: function (route) {
+        	loginRoute = route;
+        },
         setUnauthorizedRedirectRoute: function (route) {
         	unauthorizedRedirectRoute = route;
         },
-        setLoginRoute: function (route) {
-        	loginRoute = route;
-        }
     };
     
     return api;
