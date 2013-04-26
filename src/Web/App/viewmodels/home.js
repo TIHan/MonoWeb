@@ -38,14 +38,19 @@
         /* Non-Conventional
         /*************************************************************************/
         
-        self.testGetResponse = ko.observable().construct({
-        	message: ko.observable(),
-        	timestamp: ko.observableMoment()
+        self.testGetResponse = ko.observable().construct(function () {
+        	return {
+        		message: ko.observable(),
+        		timestamp: ko.observableMoment()
+        	};
         });
         self.testMessageGetResponse = ko.observable();
         self.testQueryGetResponse = ko.observable();
-        self.testListGetResponse = ko.observableArray().construct({
-			message: ko.observable()
+        self.testListGetResponse = ko.observableArray().construct(function () {
+        	return {
+        		message: ko.observable(),
+        		timestamp: ko.observableMoment()
+        	};
         });
         
         self.testPostResponse = ko.observable();

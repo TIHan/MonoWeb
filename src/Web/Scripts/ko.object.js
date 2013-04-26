@@ -91,18 +91,8 @@
         return true;
     }
     
-    function construct(ctor) {
-    	if (_.isFunction(ctor)) {
-    		return ctor;
-    	} else {
-    		return function () {
-    			return toObservable(ctor);
-    		}
-    	}
-    }
-    
     ko.subscribable.fn.construct = function (ctor) {
-    	this.ctor = construct(ctor);
+    	this.ctor = ctor;
 		return this;
     }
     
@@ -129,7 +119,7 @@
                 return null;
             }
 
-            created = construct(ctor)();
+            created = ctor();
             ko.object.map(created, obj);
             return created;
         },
