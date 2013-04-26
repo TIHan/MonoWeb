@@ -24,19 +24,19 @@ namespace MonoWeb {
 
 
 	[Route("/test")]
-	public class TestRequest { }
+	public class Test { }
 
 
 	[Route("/test/message")]
 	[Route("/test/message/{Message}")]
-	public class TestMessageRequest {
+	public class TestMessage {
 		public string Message { get; set; }
 	}
 
 
 	// Query string example.
 	[Route("/testquery")]
-	public class TestQueryRequest {
+	public class TestQuery {
 		public string Field1 { get; set; }		
 		public string Field2 { get; set; }
 		public string Field3 { get; set; }
@@ -44,7 +44,7 @@ namespace MonoWeb {
 
 
 	[Route("/testlist")]
-	public class TestListRequest { }
+	public class TestList { }
 
 
 	public class TestResponse {
@@ -59,43 +59,43 @@ namespace MonoWeb {
 
 	[Authenticate]
 	public class AppService : Service {
-		public TestResponse Get(TestRequest request) {
+		public TestResponse Get(Test request) {
 			return new TestResponse { Message = "No Passed Message" };
 		}
 		
-		public TestResponse Get(TestMessageRequest request) {
+		public TestResponse Get(TestMessage request) {
 			return new TestResponse { Message = request.Message };
 		}
 
-		public TestResponse Get(TestQueryRequest request) {
+		public TestResponse Get(TestQuery request) {
 			return new TestResponse { Message = "Field1: " + request.Field1 + " - Field2: " + request.Field2 + " - Field3: " + request.Field3 };
 		}
 
-		public IList<TestResponse> Get(TestListRequest request) {
+		public IList<TestResponse> Get(TestList request) {
 			return new List<TestResponse> { new TestResponse { Message = "Item1" }, new TestResponse { Message = "Item2" }, new TestResponse { Message = "Item3" } };
 		}
 
-		public TestResponse Post(TestRequest request) {
+		public TestResponse Post(Test request) {
 			return new TestResponse { Message = "No Passed Message" };
 		}
 
-		public TestResponse Post(TestMessageRequest request) {
+		public TestResponse Post(TestMessage request) {
 			return new TestResponse { Message = request.Message };
 		}
 
-		public TestResponse Put(TestRequest request) {
+		public TestResponse Put(Test request) {
 			return new TestResponse { Message = "No Passed Message" };
 		}
 		
-		public TestResponse Put(TestMessageRequest request) {
+		public TestResponse Put(TestMessage request) {
 			return new TestResponse { Message = request.Message };
 		}
 
-		public TestResponse Delete(TestRequest request) {
+		public TestResponse Delete(Test request) {
 			return new TestResponse { Message = "No Passed Message" };
 		}
 		
-		public TestResponse Delete(TestMessageRequest request) {
+		public TestResponse Delete(TestMessage request) {
 			return new TestResponse { Message = request.Message };
 		}
 	}
