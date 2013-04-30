@@ -29,7 +29,7 @@ namespace MonoWeb {
 		// https://github.com/ServiceStack/ServiceStack/wiki/Authentication-and-authorization
 		private void ConfigureAuth(Funq.Container container)
 		{
-			Plugins.Add(new AuthFeature(() => new AuthUserSession(), new IAuthProvider[] {
+			Plugins.Add(new AuthFeature(null, new IAuthProvider[] {
 				new CredentialsAuthProvider()
 			}));
 			
